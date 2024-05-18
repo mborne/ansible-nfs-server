@@ -1,0 +1,2 @@
+nfs_data_dir: '/var/nfs-data'
+nfs_host: '192.168.0.0/16'

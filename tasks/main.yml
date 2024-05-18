@@ -1,0 +1,21 @@
+
+- name: Create NFS directory
+  file:
+    path: "{{ nfs_data_dir }}"
+    state: directory
+    mode: '0777'
+
+- name: Install NFS server packages
+  apt:
+    name: nfs-kernel-server
+    state: present
+
+- name: Configure /etc/exports
+  lineinfile:
+    path: /etc/exports
+    line: "{{ nfs_data_dir }} {{ nfs_host }}(rw,fsid=0,sync,insecure_locks,insecure,no_root_squash)"
+
+- name: Restart NFS server
+  service:
+    name: nfs-kernel-server
+    state: restarted
