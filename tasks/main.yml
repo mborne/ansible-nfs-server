@@ -10,10 +10,10 @@
     name: nfs-kernel-server
     state: present
 
-- name: Configure /etc/exports
-  lineinfile:
-    path: /etc/exports
-    line: "{{ nfs_data_dir }} {{ nfs_host }}(rw,fsid=0,sync,insecure_locks,insecure,no_root_squash)"
+- name: Generate /etc/exports
+  template:
+    src: etc/exports.j2
+    dest: /etc/exports
 
 - name: Restart NFS server
   service:
